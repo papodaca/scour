@@ -1,0 +1,9 @@
+{
+  "name": "scour",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "repository": "https://github.com/papodaca/scour.git",
+  "author": "Ethan Apodaca",
+  "description": "A UI for dealing with SOAP APIs"
+}
