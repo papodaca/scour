@@ -4,7 +4,7 @@
   "author": "Ethan Apodaca",
   "homepage": "./",
   "description": "",
-  "main": "public/electron.js",
+  "main": "build/electron.js",
   "build": {
     "appId": "im.apodaca.scour",
     "files": [
@@ -16,39 +16,54 @@
     }
   },
   "dependencies": {
-    "@blueprintjs/core": "^3.0.1",
+    "@babel/polyfill": "^7.0.0-beta.54",
+    "@material-ui/core": "^1.4.1",
+    "@material-ui/icons": "^2.0.0",
+    "css-loader": "^1.0.0",
     "electron-is-dev": "^0.3.0",
-    "node-sass-chokidar": "^1.3.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "typeface-roboto": "^0.0.54"
   },
   "lint-staged": {
-    "{{public,src}/**/*.{scss,js,json},package.json}": [
-      "prettier --write \"{{public,src}/**/*.{scss,js,json},package.json}\"",
+    "{{public,src}/**/*.{scss,js,jsx,json},package.json}": [
+      "prettier --write \"{{src}/**/*.{scss,js,jsx,json},package.json}\"",
       "git add"
     ]
   },
   "scripts": {
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "pretty": "prettier --write \"{{public,src}/**/*.{css,scss,js,json},package.json}\"",
+    "start": "webpack-dev-server --config webpack.conf.js",
+    "build": "NODE_ENV=production webpack --config webpack.conf.js",
+    "pretty": "prettier --write \"{{src}/**/*.{css,scss,js,jsx,json},package.json}\"",
     "precommit": "lint-staged",
-    "electron-dev": "concurrently \"yarn watch-css\" \"export BROWSER=none && yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-dev": "concurrently \"yarn start\" \"wait-on http://localhost:8080 && electron .\"",
     "electron-pack": "build --em.main=build/electron.js --win --ia32 -c electron-builder.yml",
-    "preelectron-pack": "yarn build && yarn build-css"
+    "preelectron-pack": "yarn build"
   },
   "devDependencies": {
+    "@babel/core": "~7.0.0-beta.54",
+    "@babel/plugin-proposal-function-bind": "^7.0.0-beta.54",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.54",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.54",
+    "@babel/plugin-transform-react-jsx": "^7.0.0-beta.54",
+    "@babel/preset-env": "~7.0.0-beta.54",
+    "@babel/preset-react": "~7.0.0-beta.54",
+    "babel-loader": "^8.0.0-beta.4",
+    "babel-plugin-jsx-control-statements": "^3.2.8",
     "concurrently": "^3.6.1",
     "electron": "^2.0.5",
     "electron-builder": "^20.26.0",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.0",
     "prettier": "^1.13.7",
-    "wait-on": "^2.1.0"
+    "react-hot-loader": "^4.3.4",
+    "style-loader": "^0.21.0",
+    "wait-on": "^2.1.0",
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
   }
 }

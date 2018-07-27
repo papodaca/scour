@@ -6,10 +6,6 @@
 # testing
 /coverage
 
-# production
-/build
-/dist
-
 # misc
 .DS_Store
 .env.local
@@ -24,5 +20,3 @@ yarn-error.log*
 # yarn
 package-lock.json
 yarn.lock
-
-

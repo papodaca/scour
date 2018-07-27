@@ -8,7 +8,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({ width: 900, height: 680 });
   mainWindow.loadURL(
     isDev
-      ? "http://localhost:3000"
+      ? "http://localhost:8080"
       : `file://${path.join(__dirname, "../build/index.html")}`
   ); // load the react app
   mainWindow.on("closed", () => (mainWindow = null));

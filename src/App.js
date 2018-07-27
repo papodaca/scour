@@ -1,45 +1,31 @@
-import React, { Component } from "react";
-import { Button } from "@blueprintjs/core";
-import "normalize.css";
-import "@blueprintjs/icons/lib/css/blueprint-icons.css";
-import "@blueprintjs/core/lib/css/blueprint.css";
-
+import React, { Component, Fragment } from "react";
+import { Button, Grid, AppBar, Tabs, Tab } from "@material-ui/core";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
     this.setState({
-      counter: 0
+      tab: 0
     });
   }
 
-  incrementCounter() {
+  handleChange(state, newVal) {
     this.setState({
-      counter: (this.state ? this.state.counter : 0) + 1
-    })
-  }
-
-  decreaseCounder() {
-    this.setState({
-      counter: (this.state ? this.state.counter : 0) - 1
-    })
+      tab: newVal
+    });
   }
 
   render() {
     return (
-      <div>
-        <Button
-          intent="success"
-          text="Increase"
-          onClick={this.incrementCounter.bind(this)} />
-        <br/>
-        <Button
-          intent="success"
-          text="Decrease"
-          onClick={this.decreaseCounder.bind(this)} />
-        <br/>
-        <span>{this.state ? this.state.counter : 0}</span>
-      </div>
+      <Fragment>
+        <AppBar position="static">
+          <Tabs value={this.state?.tab} onChange={this.handleChange.bind(this)}>
+            <Tab label="Item One" />
+            <Tab label="Item Two" />
+            <Tab label="Item Three" href="#basic-tabs" />
+          </Tabs>
+        </AppBar>
+        {this.state?.tab}
+      </Fragment>
     );
   }
 }
