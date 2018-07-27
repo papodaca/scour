@@ -11,15 +11,14 @@ const plugins = [
   new HTMLWebpackPlugin({
     filename: path.resolve(path.join('./build', 'index.html')),
     template: path.resolve(path.join('./src', 'index.html'))
-  })
+  }),
+  new webpack.optimize.OccurrenceOrderPlugin()
 ];
 
 if(process.env.NODE_ENV !== "production") {
   plugins.push(new webpack.SourceMapDevToolPlugin({
     exclude: /node_modules/,
   }));
-} else {
-  plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
 }
 
 module.exports = {
@@ -62,7 +61,7 @@ module.exports = {
         loader: 'json',
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         loader: 'babel-loader'
       }
     ]
