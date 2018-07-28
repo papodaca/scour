@@ -7,6 +7,7 @@ process.env.BABEL_ENV = process.env.NODE_ENV || 'development';
 const plugins = [
   new webpack.DefinePlugin({
     'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') },
+    "__DEV__": process.env.BABEL_ENV === "development"
   }),
   new HTMLWebpackPlugin({
     filename: path.resolve(path.join('./build', 'index.html')),
@@ -30,6 +31,8 @@ module.exports = {
     path: path.resolve("./build"),
     filename: 'index.js'
   },
+
+  devtool: process.env.NODE_ENV !== "production" ? "eval" : undefined,
 
   plugins: plugins,
 

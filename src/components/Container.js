@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 import NewProjectDialog from "./NewProjectDialog";
 import AppBar from "./AppBar";
 
-class App extends Component {
+class Container extends Component {
   state = {
-    projects: [],
     newProjectDialogOpen: false
   };
 
@@ -24,10 +24,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <AppBar
-          projects={this.state?.projects}
-          initiateNewProject={::this.newProject}
-        />
+        <AppBar initiateNewProject={::this.newProject} />
         <NewProjectDialog
           open={this.state?.newProjectDialogOpen}
           onClose={::this.handleCloseNewProjectDialog}
@@ -37,4 +34,19 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ...ownProps
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: {}
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Container);

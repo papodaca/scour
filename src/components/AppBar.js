@@ -1,23 +1,19 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import {
-  Button,
-  Grid,
   Toolbar,
   AppBar,
   Tabs,
   Tab,
   IconButton,
   Menu,
-  MenuItem,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  TextField,
-  DialogActions
+  MenuItem
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { PlusOne, MoreHoriz } from "@material-ui/icons";
+
+import appStateActions from "../actions/AppStateActions";
 
 const styles = {
   flex: {
@@ -63,8 +59,12 @@ class TopBar extends Component {
 
   render() {
     const { classes } = this.props;
+    const { openNewProjectDialog } = this.props.actions;
     const { anchorEl, tab } = this.state;
     const menuOpen = !!anchorEl;
+    const tabs = this.props.projects?.map(project => (
+      <Tab label={project.name} />
+    ));
     return (
       <AppBar position="static">
         <Toolbar>
@@ -73,13 +73,11 @@ class TopBar extends Component {
             value={tab}
             onChange={::this.handleChange}
           >
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
+            {tabs}
           </Tabs>
           <IconButton
             aria-haspopup="true"
-            onClick={::this.newProject}
+            onClick={openNewProjectDialog}
             color="inherit"
           >
             <PlusOne />
@@ -113,4 +111,20 @@ class TopBar extends Component {
   }
 }
 
-export default withStyles(styles)(TopBar);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ...ownProps,
+    projects: state.projects.all
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(appStateActions, dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(TopBar));

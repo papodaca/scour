@@ -1,8 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
-import registerServiceWorker from "./utilities/registerServiceWorker";
+import App from "./App";
 import "typeface-roboto";
+import RedBox from "redbox-react"
 
-ReactDOM.render(<App />, document.getElementById("root"));
-registerServiceWorker();
+
+const root = document.getElementById('root')
+
+if (__DEV__) {
+  try {
+    ReactDOM.render(<App />, root)
+  } catch (e) {
+    ReactDOM.render(<RedBox error={e} />, root)
+  }
+} else {
+  ReactDOM.render(<App />, root)
+}

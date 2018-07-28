@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
 import {
   Button,
   Dialog,
@@ -11,17 +14,35 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import { PlusOne, MoreHoriz } from "@material-ui/icons";
 
-class NewProjectDialog extends Component {
-  handleClose() {
-    this.props?.onClose?.();
-  }
+import appStateActions from "../actions/AppStateActions";
+import projectActions from "../actions/ProjectActions";
 
-  handleCancel() {
-    this.handleClose();
+class NewProjectDialog extends Component {
+  state = {
+    project: {}
+  };
+
+  handleClose() {
+    this.setState({
+      project: {}
+    });
+    this.props.actions.closeNewProjectDialog();
   }
 
   handleCreate() {
+    this.props.actions.createNewProject(this.state.project);
     this.handleClose();
+  }
+
+  handleChange(field) {
+    return event => {
+      this.setState({
+        project: {
+          ...this.state.project,
+          [field]: event.target.value
+        }
+      });
+    };
   }
 
   render() {
@@ -44,6 +65,8 @@ class NewProjectDialog extends Component {
             label="Name"
             type="text"
             fullWidth
+            value={this.state.project.name}
+            onChange={this.handleChange("name")}
           />
           <TextField
             margin="dense"
@@ -51,10 +74,12 @@ class NewProjectDialog extends Component {
             label="WSDL URL"
             type="text"
             fullWidth
+            value={this.state.project.url}
+            onChange={this.handleChange("url")}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={::this.handleCancel} color="primary">
+          <Button onClick={::this.handleClose} color="primary">
             Cancel
           </Button>
           <Button onClick={::this.handleCreate} color="primary">
@@ -66,4 +91,27 @@ class NewProjectDialog extends Component {
   }
 }
 
-export default NewProjectDialog;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ...ownProps,
+    newProject: {},
+    open: state.appState.newProjectDialogOpen
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(
+      {
+        ...appStateActions,
+        ...projectActions
+      },
+      dispatch
+    )
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewProjectDialog);
