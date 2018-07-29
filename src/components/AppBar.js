@@ -62,8 +62,8 @@ class TopBar extends Component {
     const { openNewProjectDialog } = this.props.actions;
     const { anchorEl, tab } = this.state;
     const menuOpen = !!anchorEl;
-    const tabs = this.props.projects?.map(project => (
-      <Tab label={project.name} />
+    const tabs = this.props.projects?.map((project, index) => (
+      <Tab label={project.name} key={index} />
     ));
     return (
       <AppBar position="static">

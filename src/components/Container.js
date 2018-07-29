@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import NewProjectDialog from "./NewProjectDialog";
 import AppBar from "./AppBar";
+import appStateActions from "../actions/AppStateActions";
 
 class Container extends Component {
   state = {
@@ -43,7 +44,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators({}, dispatch)
+    actions: bindActionCreators(appStateActions, dispatch)
   };
 };
 
