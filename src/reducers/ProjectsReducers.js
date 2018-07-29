@@ -1,12 +1,12 @@
 import genericReducer from "./genericReducer";
 import actionTypes from "../constatns/Projects";
 
-let actionHandlers = {};
+const actionHandlers = {};
 
 actionHandlers[actionTypes.SET_PROJECTS] = (state = {}, action) => {
   return {
     ...state,
-    all: projects
+    all: action.projects
   };
 };
 

@@ -15,6 +15,7 @@ class Container extends Component {
       newProjectDialogOpen: false
     });
   }
+
   newProject() {
     this.setState({
       newProjectDialogOpen: true
@@ -40,9 +41,9 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    actions: {}
+    actions: bindActionCreators({}, dispatch)
   };
 };
 

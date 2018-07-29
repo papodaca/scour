@@ -34,7 +34,7 @@ class TopBar extends Component {
   }
 
   newProject() {
-    this.props?.initiateNewProject?.();
+    return this.props?.initiateNewProject?.();
   }
 
   account() {
@@ -118,7 +118,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(appStateActions, dispatch)
   };

@@ -1,12 +1,13 @@
-const genericReducer = function(handlers, defaultState) {
-  return function(state, action) {
+function genericReducer(handlers, defaultState) {
+  return (...args) => {
+    const state = args[0];
+    const action = args[1];
     const handler = handlers[action.type];
     if (typeof handler === "function") {
-      return handler.apply(undefined, arguments);
-    } else {
-      return state || defaultState;
+      return handler(...args);
     }
+    return state || defaultState;
   };
-};
+}
 
 export default genericReducer;

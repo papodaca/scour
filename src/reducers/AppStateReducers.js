@@ -1,7 +1,7 @@
 import genericReducer from "./genericReducer";
 import actionTypes from "../constatns/AppState";
 
-let actionHandlers = {};
+const actionHandlers = {};
 
 actionHandlers[actionTypes.SET_MENU] = (state = {}, action) => {
   return {

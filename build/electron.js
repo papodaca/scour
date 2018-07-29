@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 
@@ -11,7 +11,9 @@ function createWindow() {
       ? "http://localhost:8080"
       : `file://${path.join(__dirname, "../build/index.html")}`
   ); // load the react app
-  mainWindow.on("closed", () => (mainWindow = null));
+  mainWindow.on("closed", () => {
+    mainWindow = null;
+  });
 }
 
 app.on("ready", createWindow);

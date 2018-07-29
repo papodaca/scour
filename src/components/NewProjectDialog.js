@@ -11,8 +11,6 @@ import {
   TextField,
   DialogActions
 } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import { PlusOne, MoreHoriz } from "@material-ui/icons";
 
 import appStateActions from "../actions/AppStateActions";
 import projectActions from "../actions/ProjectActions";
@@ -35,7 +33,7 @@ class NewProjectDialog extends Component {
   }
 
   handleChange(field) {
-    return event => {
+    return (event) => {
       this.setState({
         project: {
           ...this.state.project,
@@ -99,7 +97,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(
       {

@@ -4,6 +4,7 @@
   "author": "Ethan Apodaca",
   "homepage": "./",
   "description": "",
+  "license": "MIT",
   "main": "build/electron.js",
   "build": {
     "appId": "im.apodaca.scour",
@@ -27,24 +28,28 @@
     "react-redux": "^5.0.7",
     "redbox-react": "^1.6.0",
     "redux": "^4.0.0",
-    "redux-immutable-state-invariant": "^2.1.0",
     "redux-thunk": "^2.3.0",
     "typeface-roboto": "^0.0.54"
   },
   "lint-staged": {
-    "{{public,src}/**/*.{scss,js,jsx,json},package.json}": [
-      "prettier --write \"{{src}/**/*.{scss,js,jsx,json},package.json}\"",
+    "{src/**/*.{scss,js,jsx,json},package.json}": [
+      "yarn pretty",
+      "git add"
+    ],
+    "{src/**/*.{js,jsx},build/electron.js}": [
+      "yarn lint --fix",
       "git add"
     ]
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack.conf.js",
     "build": "NODE_ENV=production webpack --config webpack.conf.js",
-    "pretty": "prettier --write \"{{src}/**/*.{css,scss,js,jsx,json},package.json}\"",
+    "pretty": "prettier --write \"{{src}/**/*.{css,js,json},package.json}\"",
     "precommit": "lint-staged",
     "electron-dev": "concurrently \"yarn start\" \"wait-on http://localhost:8080 && electron .\"",
     "electron-pack": "build --em.main=build/electron.js --win --ia32 -c electron-builder.yml",
-    "preelectron-pack": "yarn build"
+    "preelectron-pack": "yarn build",
+    "lint": "eslint src/**/*.js build/electron.js"
   },
   "devDependencies": {
     "@babel/core": "~7.0.0-beta.54",
@@ -55,11 +60,17 @@
     "@babel/plugin-transform-react-jsx": "^7.0.0-beta.54",
     "@babel/preset-env": "~7.0.0-beta.54",
     "@babel/preset-react": "~7.0.0-beta.54",
+    "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.0-beta.4",
     "babel-plugin-jsx-control-statements": "^3.2.8",
     "concurrently": "^3.6.1",
     "electron": "^2.0.5",
     "electron-builder": "^20.26.0",
+    "eslint": "^5.2.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-react": "^7.10.0",
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
